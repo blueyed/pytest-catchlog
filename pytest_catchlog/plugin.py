@@ -42,6 +42,12 @@ def pytest_addoption(parser):
     )
     add_option_ini(
         parser,
+        '--print-logs',
+        dest='log_print', action='store_const', const=True, default=True,
+        help='enable printing caught logs on failed tests (default).'
+    )
+    add_option_ini(
+        parser,
         '--log-level',
         dest='log_level', default=None,
         help='logging level used by the logging module'
