@@ -3,7 +3,7 @@ from __future__ import absolute_import, division, print_function
 
 import logging
 import sys
-from contextlib import closing, contextmanager
+from contextlib import contextmanager
 
 import pytest
 import py
@@ -11,7 +11,7 @@ import py
 from pytest_catchlog.common import catching_logs
 
 # Let the fixtures be discoverable by pytest.
-from pytest_catchlog.fixture import caplog, capturelog
+from pytest_catchlog.fixture import caplog, capturelog  # noqa
 
 
 DEFAULT_LOG_FORMAT = '%(filename)-25s %(lineno)4d %(levelname)-8s %(message)s'
@@ -34,8 +34,8 @@ def get_option_ini(config, name):
 def pytest_addoption(parser):
     """Add options to control log capturing."""
 
-    group = parser.getgroup('catchlog', 'Log catching')
-    add_option_ini(parser,
+    add_option_ini(
+        parser,
         '--no-print-logs',
         dest='log_print', action='store_const', const=False, default=True,
         help='disable printing caught logs on failed tests.'
@@ -46,12 +46,14 @@ def pytest_addoption(parser):
         dest='log_level', default=None,
         help='logging level used by the logging module'
     )
-    add_option_ini(parser,
+    add_option_ini(
+        parser,
         '--log-format',
         dest='log_format', default=DEFAULT_LOG_FORMAT,
         help='log format as used by the logging module.'
     )
-    add_option_ini(parser,
+    add_option_ini(
+        parser,
         '--log-date-format',
         dest='log_date_format', default=DEFAULT_LOG_DATE_FORMAT,
         help='log date format as used by the logging module.'
@@ -98,7 +100,6 @@ def pytest_addoption(parser):
         dest='log_file_date_format', default=DEFAULT_LOG_DATE_FORMAT,
         help='log date format as used by the logging module.'
     )
-
 
 
 def get_actual_log_level(config, setting_name):
